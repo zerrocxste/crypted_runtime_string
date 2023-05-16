@@ -1,5 +1,11 @@
 #include <iostream>
 
+#ifdef _MSC_VER
+#define FINLINE __forceinline
+#else
+#define FINLINE __attribute__((always_inline))
+#endif
+
 constexpr auto KEY = 32;
 template <typename Ch, std::size_t Sz>
 class CXStr
@@ -7,7 +13,7 @@ class CXStr
 public:
 	Ch buf[Sz / sizeof(Ch)];
 public:
-	__forceinline constexpr CXStr(const Ch str[])
+	FINLINE constexpr CXStr(const Ch str[])
 	{
 		for (std::size_t i = 0; i < (Sz / sizeof(Ch)); i++)
 		{
@@ -16,7 +22,7 @@ public:
 		}
 	}
 
-	__forceinline Ch* get() const
+	FINLINE Ch* get() const
 	{
 		volatile auto ret = (Ch*)this->buf;
 		for (std::size_t i = 0; i < (Sz / sizeof(Ch)); i++)
