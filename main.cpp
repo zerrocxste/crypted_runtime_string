@@ -34,10 +34,10 @@ public:
 	}
 };
 
-#define crstr(str) []() { auto v = *str; constexpr CXStr<decltype(v), sizeof(str)> cr(str); return cr; }().get()
+#define cxstr(str) []() { auto v = *str; constexpr CXStr<decltype(v), sizeof(str)> cr(str); return cr; }().get()
 
 int main(int argc, char* argv[], char* envp[])
 {
-	printf("%s\n", crstr("134567890 AYE"));
-	printf("%ws\n", crstr(L"134567890 AYE"));
+	printf("%s\n", cxstr("134567890 AYE"));
+	printf("%ws\n", cxstr(L"134567890 AYE"));
 }
